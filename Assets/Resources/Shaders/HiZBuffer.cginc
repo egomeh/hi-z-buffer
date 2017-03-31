@@ -18,6 +18,9 @@ struct Varyings
 Texture2D _MainTex;
 SamplerState sampler_MainTex;
 
+Texture2D _CameraDepthTexture;
+SamplerState sampler_CameraDepthTexture;
+
 Texture2D _Temporary;
 SamplerState sampler_Temporary;
 
@@ -45,7 +48,7 @@ Varyings vertex(in Input input)
 
 float4 resolve(in Varyings input) : SV_Target
 {
-    float depth = _MainTex.Sample(sampler_MainTex, input.uv).r;
+    float depth = _CameraDepthTexture.Sample(sampler_CameraDepthTexture, input.uv).r;
     return 1. / (_ZBufferParams.x * depth + _ZBufferParams.y);
 }
 
